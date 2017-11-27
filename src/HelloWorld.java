@@ -68,9 +68,9 @@ public class HelloWorld {
         	System.out.println("Começa em Preto");
         }
         System.out.println("Pressione o Botão para Iniciar");
-        Button.waitForAnyPress();
-        motorB.setSpeed(200);
-        motorC.setSpeed(200); 
+        //Button.waitForAnyPress();
+        //motorB.setSpeed(200);
+        //motorC.setSpeed(200); 
         motorB.forward();
     	motorC.forward();
         while (distance <= 100) {
@@ -128,10 +128,10 @@ public class HelloWorld {
 
     /* Filtro de Kalman Variaveis necessárias
      * variancia_us = 0.67
-     * variancia_cs = 9.61
+     * variancia_cs = 5.56
      * covariancia = 0.43
-     * desvio_padrao_us = 0.82
-     * desvio_padrao_cs = 3.1
+     * desvio_padrao_us = 0.74
+     * desvio_padrao_cs = 1.99
      * k = variancia_cs / variancia_cs - variancia_us
      * estimativa_distancia = k*us.getDistance() + (1 - k)*cs.getDistance()
      * estimativa_erro = (k^2)*variancia_us + ((1 - k)^2)*variancia_cs
@@ -141,15 +141,16 @@ public class HelloWorld {
      * estimativa_erro = (1-k)*estimativa_erro_anterior 
      */
     public static void FiltrodeKalman(NXTRegulatedMotor motorB, NXTRegulatedMotor motorC, ColorSensor cs,  UltrasonicSensor us) {
-        
+    	while(true) {
         int curr_color, last_color, transitions_black = 0, transitions_white = 0;
         double distance = 0, distance_cs = 0,  deslocamento_us, distance_us, distance_before_us = us.getDistance();
         curr_color = last_color = cs.getColor().getColor();
-        double K, P = 0.43;
-        double desvio_padrao_medio = 3.1;  //(1.99 + 0.74) / 2; //1.37
+        double K, P = 0.17;
+        double desvio_padrao_medio = 2.36;  //(1.99 + 0.74) / 2; //1.37
         double estimativa_distancia = 0, estimativa_distancia_anterior = 0, estimativa_distancia_final = 0;
         int flag = 0;
         int flagColor = 0;
+        
         if (curr_color == Color.WHITE) {
         	flagColor = 0;
         	System.out.println("Começa em Branco");
@@ -159,9 +160,9 @@ public class HelloWorld {
         }
         System.out.println("Distancia da Parede: "+ distance_before_us);
         System.out.println("Pressione o Botão para Iniciar");
-        Button.waitForAnyPress();
-        motorB.setSpeed(200);
-        motorC.setSpeed(200);
+        
+        //motorB.setSpeed(200);
+        //motorC.setSpeed(200);
         motorB.forward();
     	motorC.forward();
         while (distance <= 100) { //140 == 1 metro, 280 == 2 metros
@@ -223,6 +224,7 @@ public class HelloWorld {
         motorC.stop();
         
         Button.waitForAnyPress();
+        }
     }
 }
 
