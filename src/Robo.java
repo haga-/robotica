@@ -2,6 +2,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
+import lejos.util.Delay;
 
 public class Robo {
 	private UltrasonicSensor us;
@@ -12,7 +13,7 @@ public class Robo {
     String direction;
     
     int TURN_45_ANGLE = 360; // Deveria ser 360, erro statico de 10
-    int TURN_90_ANGLE = 650; // Deveria ser 360, erro statico de 10
+    int TURN_90_ANGLE = 565; // Valor pego no empirismo
 	int MOVE_1_STEP_ANGLE = 720;
     
     Robo(int x, int y){
@@ -32,12 +33,12 @@ public class Robo {
     		this.moveForward();
         	System.out.println("CHOICE "+no.getDirection());
     	}else {
-    		if(no.getDirection() == "E")
-    			E();
-    		if(no.getDirection() == "N")
-    			N();
-    		if(no.getDirection() == "W")
-    			W();
+    		if(no.getDirection().equals("E"))
+    			this.E();
+    		if(no.getDirection().equals("N"))
+    			this.N();
+    		if(no.getDirection().equals("W"))
+    			this.W();
     		this.moveForward();
     	}
     	pos = no.getPosition();    	
@@ -45,8 +46,10 @@ public class Robo {
     
     //LESTE
     public Boolean E() {
-    	motorB.rotateTo(TURN_90_ANGLE-70, true);
-    	motorC.rotateTo((TURN_90_ANGLE-70)*-1, true);
+    	motorB.resetTachoCount();
+    	motorC.resetTachoCount();
+    	motorB.rotateTo(TURN_90_ANGLE, true);
+    	motorC.rotateTo(-TURN_90_ANGLE, true);
     	
     	while (motorB.isMoving() || motorC.isMoving());
     	System.out.println("RIGHT");
@@ -54,8 +57,11 @@ public class Robo {
     }
     //OESTE
     public Boolean W() {
-    	motorC.rotateTo(TURN_90_ANGLE-100, true);
-    	motorB.rotateTo((TURN_90_ANGLE-100)*-1, true);
+    	motorB.resetTachoCount();
+    	motorC.resetTachoCount();
+    	motorB.rotateTo(-TURN_90_ANGLE, true);
+    	motorC.rotateTo(TURN_90_ANGLE, true);
+    	
     	
     	while (motorB.isMoving() || motorC.isMoving());
     	
@@ -87,6 +93,8 @@ public class Robo {
     }
     
     public Boolean moveForward() {
+    	motorB.resetTachoCount();
+    	motorC.resetTachoCount();
     	
     	Motor.B.rotate(MOVE_1_STEP_ANGLE, true);
     	Motor.C.rotate(MOVE_1_STEP_ANGLE, true);
@@ -139,42 +147,39 @@ public class Robo {
     //Return true if step is free
     public int lookFront() {
     	motorA.rotateTo(0, true);
-    	
+
+    	int distance = 0;
     	while (motorA.isMoving());
-    	
-    	System.out.println("Front:" + us.getDistance());
-//    	if (us.getDistance() < 20)
-//    		return false;
-    	
-//    	return true;
-    	return us.getDistance();
+    	Delay.msDelay(1000);
+    	distance = us.getDistance();
+    	System.out.println("Front:" + distance);
+
+    	return distance;
     }
     
     //Return true if step is free
     public int lookLeft() {
     	motorA.rotateTo(91, true);
     	
-    	System.out.println("Left:" + us.getDistance());
-    	
+    	int distance = 0;
     	while (motorA.isMoving());
-    	
-//    	if (us.getDistance() < 20)
-//		return false;
-	
-//	return true;
-    	return us.getDistance();
+    	Delay.msDelay(1000);
+    	distance = us.getDistance();
+    	System.out.println("Left:" + distance);
+
+    	return distance;
     }
     
     //Return true if step is free
     public int lookRight() {
     	motorA.rotateTo(-91, true);
  	
+    	int distance = 0;
     	while (motorA.isMoving());
-    	
-//    	if (us.getDistance() < 20)
-//		return false;
-	
-//	return true;
-    	return us.getDistance();
-    }
+    	Delay.msDelay(1000);
+    	distance = us.getDistance();
+    	System.out.println("Right:" + distance);
+
+    	return distance;
+}
 }

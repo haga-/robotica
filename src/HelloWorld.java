@@ -55,23 +55,21 @@ public class HelloWorld {
         	//TODO: SOLUCAO PALEATIVA BUSCA MENOR CUSTO
         	int posicao_no = 0;
         	for (int i = 0; i < nodes.size(); i++) {
-            	if ((nodes.get(i).getCost() < nodes.get(posicao_no).getCost()) && !nodes.get(i).getChoice()) {
+            	if ((nodes.get(i).getCost() < nodes.get(posicao_no).getCost()) 
+            			&& !nodes.get(i).getChoice()) {
             		posicao_no = i;
             	}
             }
         	nodes.get(posicao_no).setChoice(true);
         	robo.move(nodes.get(posicao_no));            
         
-        	Button.waitForAnyPress();
+        	//Button.waitForAnyPress();
         }
 
-        Button.waitForAnyPress();
+        
         //robo.moveForward();
-        /*int flag = 0;
-        while(flag != 4) {
-        	robo.moveForward();
-        	flag++;
-        }*/
+
+        Button.waitForAnyPress();
     }
     
 }
