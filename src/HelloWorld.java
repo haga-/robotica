@@ -16,59 +16,63 @@ public class HelloWorld {
      */
 	
 	//int mMap[][] = new int[25][25];
-	static int init_x = 5;
-	static int init_y = 3;
-	static int final_x = 3;
-	static int final_y = 5;
+	static int init_x = 3;
+	static int init_y = 1;
+	static Position initial_pos = new Position(3,1);
+	static Position final_pos = new Position(3,5);
 	
     public static void main(String[] args) {
     	
         Robo robo = new Robo(init_x,init_y);
-        AStar astar = new AStar(final_x, final_y);
-        ArrayList<Node> nodes = new ArrayList<Node>();
-        while(robo.pos.getX() != final_x && robo.pos.getY() != final_y) {
-        	
+        //AStar astar = new AStar(final_x, final_y);
+        AStar astar = new AStar(initial_pos, final_pos);
+        //ArrayList<Node> nodes = new ArrayList<Node>(); 
+        PriorityQueue nodes = new PriorityQueue();
+        
+        while(!robo.pos.equals(final_pos)) {
         	if(robo.lookRight() > 20 ) {
         		System.out.println("NO Right");
-        		Node no = new Node(new Position(robo.pos.getX(), robo.pos.getY()+1), "E"); 
-        		no.setCost(astar.manhattan(no.pos.x, no.pos.y));
-        		no.setNumberSteps(astar.calcNumberSteps(no.pos.x, no.pos.y));
+        		Node no = new Node(new Position(robo.pos.getX()+1, robo.pos.getY()), "E"); 
+
+        		no.setG(astar.G(no.pos));
+        		no.setH(astar.H(no.pos));
+        		no.setF();
         		nodes.add(no);        		
         	}
         	
         	if(robo.lookLeft() > 20 ) {
         		System.out.println("NO Left");
-        		Node no = new Node(new Position(robo.pos.getX(), robo.pos.getY()-1), "W"); 
-        		no.setCost(astar.manhattan(no.pos.x, no.pos.y));
-        		no.setNumberSteps(astar.calcNumberSteps(no.pos.x, no.pos.y));
+        		Node no = new Node(new Position(robo.pos.getX()-1, robo.pos.getY()), "W"); 
+        		
+        		no.setG(astar.G(no.pos));
+        		no.setH(astar.H(no.pos));
+        		no.setF();
         		nodes.add(no);
         	}
         	
         	if(robo.lookFront() > 20) {
         		System.out.println("NO Front");
-        		Node no = new Node(new Position(robo.pos.getX()+1, robo.pos.getY()), "N"); 
-        		no.setCost(astar.manhattan(no.pos.x, no.pos.y));
-        		no.setNumberSteps(astar.calcNumberSteps(no.pos.x, no.pos.y));
+        		Node no = new Node(new Position(robo.pos.getX(), robo.pos.getY()+1), "N"); 
+        		
+        		no.setG(astar.G(no.pos));
+        		no.setH(astar.H(no.pos));
+        		no.setF();
         		nodes.add(no);
         	}
         	
         	//TODO: SOLUCAO PALEATIVA BUSCA MENOR CUSTO
-        	int posicao_no = 0;
+        	/*int posicao_no = 0;
         	for (int i = 0; i < nodes.size(); i++) {
-            	if ((nodes.get(i).getCost() < nodes.get(posicao_no).getCost()) 
-            			&& !nodes.get(i).getChoice()) {
+            	if ((nodes.get(i).getF() < nodes.get(posicao_no).getF()) && !nodes.get(i).getChoice()) {
             		posicao_no = i;
             	}
-            }
-        	nodes.get(posicao_no).setChoice(true);
-        	robo.move(nodes.get(posicao_no));            
+            }*/
+        	Node node = nodes.first();
+        	node.setChoice(true);
+        	robo.move(node);            
         
-        	//Button.waitForAnyPress();
         }
-
-        
-        //robo.moveForward();
-
+        System.out.println("CHEGOU!!!");
         Button.waitForAnyPress();
     }
     

@@ -14,7 +14,7 @@ public class Robo {
     
     int TURN_45_ANGLE = 360; // Deveria ser 360, erro statico de 10
     int TURN_90_ANGLE = 565; // Valor pego no empirismo
-	int MOVE_1_STEP_ANGLE = 720;
+	int MOVE_1_STEP_ANGLE = 740;
     
     Robo(int x, int y){
     	us = new UltrasonicSensor(SensorPort.S4);
@@ -28,6 +28,9 @@ public class Robo {
     }
     
     public void move(Node no) {
+    	int x, y;
+    	x = no.pos.x - pos.x; y = no.pos.y - pos.y;
+    	
     	System.out.println("CHOICE "+no.getDirection());
     	if (direction == no.getDirection()) {
     		this.moveForward();
@@ -41,6 +44,7 @@ public class Robo {
     			this.W();
     		this.moveForward();
     	}
+    	direction = no.getDirection();
     	pos = no.getPosition();    	
     }
     
@@ -72,6 +76,8 @@ public class Robo {
     
     //NORTE
     public Boolean N() {
+    	motorB.resetTachoCount();
+    	motorC.resetTachoCount();
     	motorB.rotateTo(0, true);
     	motorC.rotateTo(0, true);
     	
@@ -82,7 +88,7 @@ public class Robo {
     }
     
     //SUL
-    public Boolean S() {
+    /*public Boolean S() {
     	motorB.rotateTo((TURN_90_ANGLE*2)-70, true);
     	motorC.rotateTo(((TURN_90_ANGLE*2)-70)*-1, true);
     	
@@ -90,7 +96,7 @@ public class Robo {
     	
     	System.out.println("FRONT");
     	return true;
-    }
+    }*/
     
     public Boolean moveForward() {
     	motorB.resetTachoCount();
@@ -103,7 +109,7 @@ public class Robo {
     	
     	return true;
     }
-    
+    /*
     public Boolean moveBackward() {
     	Motor.B.rotate(-MOVE_1_STEP_ANGLE, true);
     	Motor.C.rotate(-MOVE_1_STEP_ANGLE, true);
@@ -143,7 +149,7 @@ public class Robo {
     		return this.moveForward();
     	}
     	return true;
-    }
+    }*/
     //Return true if step is free
     public int lookFront() {
     	motorA.rotateTo(0, true);

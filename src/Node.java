@@ -8,11 +8,13 @@ public class Node implements Comparable<Node>{
 	Boolean choice;
 	private ArrayList<Node> path;
 	String direction; 
+	int g, h, f;
 	
 	public Node(Position position, String dir){
 		this.pos = position;
 		this.direction = dir;
 		choice = false;
+		g = h = f = 0;
 	}
 	
 	public void setChoice(Boolean c) {
@@ -22,6 +24,15 @@ public class Node implements Comparable<Node>{
 	public Boolean getChoice() {
 		return this.choice;
 	}
+	
+	public void setG(int _g) { g = _g;}
+	public int getG() { return g; }
+	
+	public void setH(int _h) { h = _h;}
+	public int getH() { return h; }
+	
+	public void setF() { f = g + h;}
+	public int getF() { return f; }
 	
 	public void setCost(int heuristic){
 		this.heuristic = heuristic;
