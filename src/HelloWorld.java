@@ -1,21 +1,7 @@
-//import lejos.nxt.Motor;
-//import lejos.nxt.NXTRegulatedMotor;
-//import lejos.nxt.UltrasonicSensor;
-//import lejos.robotics.Color;
-//import lejos.nxt.Button;
-//import lejos.nxt.ColorSensor;
-//import lejos.nxt.SensorPort;
-
 import java.util.*;
-
 import lejos.nxt.Button;
 
 public class HelloWorld {
-    /**
-     * @param args
-     */
-	
-	//int mMap[][] = new int[25][25];
 	static int init_x = 3;
 	static int init_y = 1;
 	static Position initial_pos = new Position(3,1);
