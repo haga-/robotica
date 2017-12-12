@@ -11,18 +11,21 @@ public class Robo {
     private NXTRegulatedMotor motorC;
     public Position pos; 
     String direction;
+    String globalPosition[]; 
+    int globalIndice;
     
     int TURN_45_ANGLE = 360; // Deveria ser 360, erro statico de 10
     int TURN_90_ANGLE = 565; // Valor pego no empirismo
-	int MOVE_1_STEP_ANGLE = 740;
-    
+	int MOVE_1_STEP_ANGLE = 800;
+	
     Robo(int x, int y){
     	us = new UltrasonicSensor(SensorPort.S4);
     	motorA = Motor.A;
     	motorB = Motor.B;
     	motorC = Motor.C;
     	motorA.setSpeed(100);
-    	
+    	globalPosition = new String[]{"N", "E", "S", "W"};
+    	globalIndice = 0;
     	pos = new Position(x,y);
     	direction = "N";
     }
@@ -31,23 +34,61 @@ public class Robo {
     	int x, y;
     	x = no.pos.x - pos.x; y = no.pos.y - pos.y;
     	
-    	System.out.println("CHOICE "+no.getDirection());
-    	if (direction == no.getDirection()) {
-    		this.moveForward();
-        	System.out.println("CHOICE "+no.getDirection());
-    	}else {
-    		if(no.getDirection().equals("E"))
-    			this.E();
-    		if(no.getDirection().equals("N"))
+    	System.out.println("x: "+no.pos.x+" y:"+no.pos.y+" cust:"+no.f);
+
+    		if(no.getDirection().equals("E")) {
+    			if (direction.equals("W")) {
+    				this.E();
+    				globalIndice++;
+    				this.E();
+    				globalIndice++;
+    			}else {
+    				this.E();
+    				globalIndice++;
+    			}
+    			//this.pos.x++;
+    		}
+    		
+    		/*if(no.getDirection().equals("N")) {
     			this.N();
-    		if(no.getDirection().equals("W"))
-    			this.W();
-    		this.moveForward();
-    	}
+    			//this.pos.y++;
+    		}*/
+    		
+    		if(no.getDirection().equals("W")) {
+    			if (direction.equals("E")) {
+    				this.W();
+    				globalIndice--;
+    				this.W();
+    				globalIndice--;
+    			}else {
+    				this.W();
+    				globalIndice--;
+    			}
+    			//this.pos.x--;
+    		}
+    		
+    	//}
+    	this.moveForward();
+    	setPos();
     	direction = no.getDirection();
-    	pos = no.getPosition();    	
+    	//pos = no.getPosition();    	
     }
     
+    public void setPos() {   			
+    	int index = ((globalIndice%4)+4)%4;
+    	if (globalPosition[index].equals("N")) {
+    		this.pos.y++;
+		}
+    	if (globalPosition[index].equals("W")) {
+	    		this.pos.x--;
+    	}
+		if (globalPosition[index].equals("E")) {
+		    		this.pos.x++;
+		}
+		if (globalPosition[index].equals("S")) {
+    		this.pos.y--;
+		}	
+    }
     //LESTE
     public Boolean E() {
     	motorB.resetTachoCount();

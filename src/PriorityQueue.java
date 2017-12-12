@@ -25,4 +25,8 @@ public class PriorityQueue {
 	public void add(Node node) {
 		nodes.add(node);
 	}
+	
+	public Boolean isEmpty() {
+		return nodes.isEmpty();
+	}
 }
