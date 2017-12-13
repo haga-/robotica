@@ -1,9 +1,9 @@
 public class Block {
 	int g, h;
 	Position pos;
-	Boolean reachable;
+	int reachable; // 0 não visto, 1 avistado, 2 visitado, 3 obstáculo
 	
-	public Block(int g, int h, Position pos, Boolean reachable){
+	public Block(int g, int h, Position pos, int reachable){
 		this.pos = pos;
 		this.g = g;
 		this.h = h;
@@ -14,11 +14,8 @@ public class Block {
 		return g + h;
 	}
 
-	public Boolean getReachable(){
-		return reachable;
-	}
-
 	public Position getPos(){
 		return pos;
 	}
+	
 }

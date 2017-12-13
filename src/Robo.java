@@ -3,6 +3,7 @@ import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import lejos.util.Delay;
+import java.util.ArrayList;
 
 public class Robo {
 	private UltrasonicSensor us;
@@ -10,7 +11,8 @@ public class Robo {
     private NXTRegulatedMotor motorB;
     private NXTRegulatedMotor motorC;
     public Position pos; 
-    String direction;
+    int direction;
+    int globalPosition;
     
     int TURN_45_ANGLE = 360; // Deveria ser 360, erro statico de 10
     int TURN_90_ANGLE = 565; // Valor pego no empirismo
@@ -22,30 +24,18 @@ public class Robo {
     	motorB = Motor.B;
     	motorC = Motor.C;
     	motorA.setSpeed(100);
-    	
     	pos = new Position(x,y);
-    	direction = "N";
+    	globalPosition = 0;
+    	direction = 0;
     }
     
-    public void move(Node no) {
+    public void move(Block blk) {
     	int x, y;
-    	x = no.pos.x - pos.x; y = no.pos.y - pos.y;
-    	
-    	System.out.println("CHOICE "+no.getDirection());
-    	if (direction == no.getDirection()) {
-    		this.moveForward();
-        	System.out.println("CHOICE "+no.getDirection());
-    	}else {
-    		if(no.getDirection().equals("E"))
-    			this.E();
-    		if(no.getDirection().equals("N"))
-    			this.N();
-    		if(no.getDirection().equals("W"))
-    			this.W();
-    		this.moveForward();
+    	x = blk.pos.x - pos.x; y = blk.pos.y - pos.y;
+    	while(!pos.equals(blk.pos)) {
+    		
     	}
-    	direction = no.getDirection();
-    	pos = no.getPosition();    	
+    	
     }
     
     //LESTE
@@ -109,7 +99,7 @@ public class Robo {
     	distance = us.getDistance();
     	System.out.println("Front:" + distance);
 
-    	return distance > 20 && distance < 40;
+    	return distance > 20 && distance < 80;
     }
     
     //Return true if step is free
@@ -122,7 +112,7 @@ public class Robo {
     	distance = us.getDistance();
     	System.out.println("Left:" + distance);
 
-    	return distance > 20 && distance < 40;
+    	return distance > 20 && distance < 80;
     }
     
     //Return true if step is free
@@ -135,6 +125,6 @@ public class Robo {
     	distance = us.getDistance();
     	System.out.println("Right:" + distance);
 
-    	return distance > 20 && distance < 40;
+    	return distance > 20 && distance < 80;
 }
 }
