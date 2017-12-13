@@ -23,7 +23,8 @@ public class PriorityQueue {
 	}
 	
 	public void add(Node node) {
-		nodes.add(node);
+		if(!nodes.contains(node))
+			nodes.add(node);		
 	}
 	
 	public Boolean isEmpty() {

@@ -15,8 +15,8 @@ public class Robo {
     int globalIndice;
     
     int TURN_45_ANGLE = 360; // Deveria ser 360, erro statico de 10
-    int TURN_90_ANGLE = 565; // Valor pego no empirismo
-	int MOVE_1_STEP_ANGLE = 800;
+    int TURN_90_ANGLE = 540; // Valor pego no empirismo
+	int MOVE_1_STEP_ANGLE = 850;
 	
     Robo(int x, int y){
     	us = new UltrasonicSensor(SensorPort.S4);
@@ -31,11 +31,11 @@ public class Robo {
     }
     
     public void move(Node no) {
-    	int x, y;
-    	x = no.pos.x - pos.x; y = no.pos.y - pos.y;
+    	//int x, y;
+    	//x = no.pos.x - pos.x; y = no.pos.y - pos.y;
     	
-    	System.out.println("x: "+no.pos.x+" y:"+no.pos.y+" cust:"+no.f);
-
+    	//System.out.println("x: "+no.pos.x+" y:"+no.pos.y+" cust:"+no.f);
+    	if(!no.pos.equals(pos)) {
     		if(no.getDirection().equals("E")) {
     			if (direction.equals("W")) {
     				this.E();
@@ -49,10 +49,6 @@ public class Robo {
     			//this.pos.x++;
     		}
     		
-    		/*if(no.getDirection().equals("N")) {
-    			this.N();
-    			//this.pos.y++;
-    		}*/
     		
     		if(no.getDirection().equals("W")) {
     			if (direction.equals("E")) {
@@ -69,6 +65,10 @@ public class Robo {
     		
     	//}
     	this.moveForward();
+    	}
+    	
+    	
+    		
     	setPos();
     	direction = no.getDirection();
     	//pos = no.getPosition();    	
@@ -192,41 +192,41 @@ public class Robo {
     	return true;
     }*/
     //Return true if step is free
-    public int lookFront() {
+    public Boolean lookFront() {
     	motorA.rotateTo(0, true);
 
     	int distance = 0;
     	while (motorA.isMoving());
-    	Delay.msDelay(1000);
+    	Delay.msDelay(500);
     	distance = us.getDistance();
     	System.out.println("Front:" + distance);
-
-    	return distance;
+    	
+    	return distance > 20 && distance < 200;
     }
     
     //Return true if step is free
-    public int lookLeft() {
+    public Boolean lookLeft() {
     	motorA.rotateTo(91, true);
     	
     	int distance = 0;
     	while (motorA.isMoving());
-    	Delay.msDelay(1000);
+    	Delay.msDelay(500);
     	distance = us.getDistance();
     	System.out.println("Left:" + distance);
 
-    	return distance;
+    	return distance > 20 && distance < 200;
     }
     
     //Return true if step is free
-    public int lookRight() {
+    public Boolean lookRight() {
     	motorA.rotateTo(-91, true);
  	
     	int distance = 0;
     	while (motorA.isMoving());
-    	Delay.msDelay(1000);
+    	Delay.msDelay(500);
     	distance = us.getDistance();
     	System.out.println("Right:" + distance);
 
-    	return distance;
+    	return distance > 20 && distance < 200;
 }
 }
