@@ -11,39 +11,23 @@ public class HelloWorld {
         Robo robo = new Robo(initial_pos.x, initial_pos.y);
         
         while(!robo.pos.equals(final_pos)) {
-        	if(robo.lookRight()) {
-        		System.out.println("NO Right");
-        		Position pos = new Position(robo.pos.x+1, robo.pos.y);
-        		Block b = new Block(astar.G(pos), astar.H(pos), pos, true);
-        		map.setMap(b);
-        	} else {
-        		Position pos = new Position(robo.pos.x+1, robo.pos.y);
-        		Block b = new Block(-1, -1, pos, false);
-        		map.setMap(b);
-        	}
+        	// Direita
+    		System.out.println("NO Right");
+    		Position pos = new Position(robo.pos.x+1, robo.pos.y);
+    		Block b = new Block(astar.G(pos), astar.H(pos), pos, robo.lookRight());
+    		map.setMap(b);
         	
-        	if(robo.lookLeft()) {
-        		System.out.println("NO Left");
-        		Position pos = new Position(robo.pos.x-1, robo.pos.y);
-        		Block b = new Block(astar.G(pos), astar.H(pos), pos, true);
-        		map.setMap(b);
-        	} else {
-        		Position pos = new Position(robo.pos.x+1, robo.pos.y);
-        		Block b = new Block(-1, -1, pos, false);
-        		map.setMap(b);
-        	}
+    		// Esquerda
+    		System.out.println("NO Left");
+    		pos = new Position(robo.pos.x-1, robo.pos.y);
+    		b = new Block(astar.G(pos), astar.H(pos), pos, robo.lookLeft());
+    		map.setMap(b);
         	
-        	if(robo.lookFront() > 20) {
-        		System.out.println("NO Front");
-        		Position pos = new Position(robo.pos.x, robo.pos.y+1);
-        		Block b = new Block(astar.G(pos), astar.H(pos), pos, true);
-        		map.setMap(b);
-        	} else {
-        		Position pos = new Position(robo.pos.x, robo.pos.y-1);
-        		Block b = new Block(-1, -1, pos, false);
-        		map.setMap(b);
-        	}
-        	
+    		// Frente
+    		System.out.println("NO Front");
+    		pos = new Position(robo.pos.x, robo.pos.y+1);
+    		b = new Block(astar.G(pos), astar.H(pos), pos, robo.lookFront());
+    		map.setMap(b);        	
         	
         }
         System.out.println("CHEGOU!!!");

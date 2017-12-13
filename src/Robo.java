@@ -100,7 +100,7 @@ public class Robo {
     }
     
     //Return true if step is free
-    public int lookFront() {
+    public Boolean lookFront() {
     	motorA.rotateTo(0, true);
 
     	int distance = 0;
@@ -109,7 +109,7 @@ public class Robo {
     	distance = us.getDistance();
     	System.out.println("Front:" + distance);
 
-    	return distance;
+    	return distance > 20 && distance < 40;
     }
     
     //Return true if step is free
