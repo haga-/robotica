@@ -1,11 +1,9 @@
-import java.*;
-
-public class Block implement Comparable<Block>{
+public class Block {
 	int g, h;
 	Position pos;
 	Boolean old;
 	
-	public Block(g, h, pos){
+	public Block(int g, int h, Position pos){
 		this.pos = pos;
 		this.g = g;
 		this.h = h;

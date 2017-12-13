@@ -1,13 +1,10 @@
-import java.*;
-import java.util.ArrayList;
-
 public class Map{
 	Block[][] map = new Block[7][7];
 	Position ini, fin;
 
 	public Map(Position i, Position f){
-		ini = new Position(i);
-		fin = new Position(f);
+		ini = new Position(i.x, i.y);
+		fin = new Position(f.x, f.y);
 		setMap(new Block(0, 0, ini));
 		setMap(new Block(0, 0, fin));
 	}
@@ -17,6 +14,6 @@ public class Map{
 	}
 
 	public Block getBlock(Position pos){
-		return Block[pos.getX()][pos.getY];
+		return map[pos.getX()][pos.getY()];
 	}
 }
