@@ -87,17 +87,6 @@ public class Robo {
     	return true;
     }
     
-    //SUL
-    /*public Boolean S() {
-    	motorB.rotateTo((TURN_90_ANGLE*2)-70, true);
-    	motorC.rotateTo(((TURN_90_ANGLE*2)-70)*-1, true);
-    	
-    	while (motorB.isMoving() || motorC.isMoving());
-    	
-    	System.out.println("FRONT");
-    	return true;
-    }*/
-    
     public Boolean moveForward() {
     	motorB.resetTachoCount();
     	motorC.resetTachoCount();
@@ -109,54 +98,14 @@ public class Robo {
     	
     	return true;
     }
-    /*
-    public Boolean moveBackward() {
-    	Motor.B.rotate(-MOVE_1_STEP_ANGLE, true);
-    	Motor.C.rotate(-MOVE_1_STEP_ANGLE, true);
-    	
-    	while (motorB.isMoving() || motorC.isMoving());
-    	
-    	return true;
-    }
     
-    public Boolean moveRight(int vezes) {
-    	E();
-    	for(int i = 0; i < vezes; i++) {
-    		this.moveForward();
-    	}
-    	return true;
-    }
-    
-    public Boolean moveLeft(int vezes) {
-    	W();
-    	for (int i = 0; i < vezes; i++) {
-    		return this.moveForward();
-    	}
-    	return true;
-    }
-    
-    public Boolean moveNorth(int vezes) {
-    	N();
-    	for (int i = 0; i < vezes; i++) {
-    		return this.moveForward();
-    	}
-    	return true;
-    }
-    
-    public Boolean moveSouth(int vezes) {
-    	S();
-    	for (int i = 0; i < vezes; i++) {
-    		return this.moveForward();
-    	}
-    	return true;
-    }*/
     //Return true if step is free
     public int lookFront() {
     	motorA.rotateTo(0, true);
 
     	int distance = 0;
     	while (motorA.isMoving());
-    	Delay.msDelay(1000);
+    	Delay.msDelay(500);
     	distance = us.getDistance();
     	System.out.println("Front:" + distance);
 
@@ -164,28 +113,28 @@ public class Robo {
     }
     
     //Return true if step is free
-    public int lookLeft() {
+    public Boolean lookLeft() {
     	motorA.rotateTo(91, true);
     	
     	int distance = 0;
     	while (motorA.isMoving());
-    	Delay.msDelay(1000);
+    	Delay.msDelay(500);
     	distance = us.getDistance();
     	System.out.println("Left:" + distance);
 
-    	return distance;
+    	return distance > 20 && distance < 40;
     }
     
     //Return true if step is free
-    public int lookRight() {
+    public Boolean lookRight() {
     	motorA.rotateTo(-91, true);
  	
     	int distance = 0;
     	while (motorA.isMoving());
-    	Delay.msDelay(1000);
+    	Delay.msDelay(500);
     	distance = us.getDistance();
     	System.out.println("Right:" + distance);
 
-    	return distance;
+    	return distance > 20 && distance < 40;
 }
 }

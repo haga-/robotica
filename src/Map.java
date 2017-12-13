@@ -5,8 +5,8 @@ public class Map{
 	public Map(Position i, Position f){
 		ini = new Position(i.x, i.y);
 		fin = new Position(f.x, f.y);
-		setMap(new Block(0, 0, ini));
-		setMap(new Block(0, 0, fin));
+		setMap(new Block(0, 0, ini, false));
+		setMap(new Block(0, 0, fin, true));
 	}
 
 	public void setMap(Block blk){
@@ -16,4 +16,6 @@ public class Map{
 	public Block getBlock(Position pos){
 		return map[pos.getX()][pos.getY()];
 	}
+	
+	
 }

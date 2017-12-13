@@ -1,28 +1,24 @@
 public class Block {
 	int g, h;
 	Position pos;
-	Boolean old;
+	Boolean reachable;
 	
-	public Block(int g, int h, Position pos){
+	public Block(int g, int h, Position pos, Boolean reachable){
 		this.pos = pos;
 		this.g = g;
 		this.h = h;
-		this.old = false;
+		this.reachable = reachable;
 	}
 
 	public int getF(){
 		return g + h;
 	}
 
-	public Boolean getOld(){
-		return old;
+	public Boolean getReachable(){
+		return reachable;
 	}
 
 	public Position getPos(){
 		return pos;
-	}
-
-	public void setOld(){
-		old = true;
 	}
 }
