@@ -87,27 +87,27 @@ public class HelloWorld {
         	if (!temp_nodes.isEmpty()) {
         		//Node node = nodes.first();
             	temp_nodes.get(posicao_no).setChoice(true);
-            	robo.move(temp_nodes.get(posicao_no));
+            	robo.move(temp_nodes.get(posicao_no), false);
             	nodes.add(temp_nodes.get(posicao_no));
             	temp_nodes.clear();
         	} else {
         		if (!nodes.isEmpty()) {
         		//Node node = nodes.first();
-        			for (int i = 0; i < nodes.size(); i++) {
+        			/*for (int i = 0; i < nodes.size(); i++) {
                     	if ((nodes.get(i).getF() < nodes.get(posicao_no).getF()) && !nodes.get(i).getChoice()) {
                     		posicao_no = i;
                     	} else if (nodes.get(i).getF() == nodes.get(posicao_no).getF()) {
                     		 posicao_no = nodes.get(i).getH() < nodes.get(posicao_no).getH() ? i : posicao_no; 
                     	}
                     }
-	            	nodes.get(posicao_no).setChoice(true);
-	            	robo.move(nodes.get(posicao_no));
+	            	nodes.get(posicao_no).setChoice(true); */
+	            	robo.move(nodes.get(nodes.size()-2), true);
 	        		}else {
 	        			System.out.println("Lista vazia");
 	        		}
         	}
         	
-        	Button.waitForAnyPress();        
+        	//Button.waitForAnyPress();        
         }
         System.out.println("CHEGOU!!!");
         Button.waitForAnyPress();

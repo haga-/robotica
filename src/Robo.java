@@ -30,10 +30,16 @@ public class Robo {
     	direction = "N";
     }
     
-    public void move(Node no) {
+    public void move(Node no, Boolean flag) {
     	//int x, y;
     	//x = no.pos.x - pos.x; y = no.pos.y - pos.y;
-    	
+    	if (flag) {
+    		globalIndice = 2;
+    		this.pos = no.pos;
+    		S();
+    		System.out.println("x: "+no.pos.x+" y:"+no.pos.y+" cust:"+no.f);
+    		return;
+    	}
     	//System.out.println("x: "+no.pos.x+" y:"+no.pos.y+" cust:"+no.f);
     	if(!no.pos.equals(pos)) {
     		if(no.getDirection().equals("E")) {
@@ -78,15 +84,19 @@ public class Robo {
     	int index = ((globalIndice%4)+4)%4;
     	if (globalPosition[index].equals("N")) {
     		this.pos.y++;
+    		//direction = "N";
 		}
     	if (globalPosition[index].equals("W")) {
 	    		this.pos.x--;
+	    		///direction = "W";
     	}
 		if (globalPosition[index].equals("E")) {
 		    		this.pos.x++;
+		    		//direction = "E";
 		}
 		if (globalPosition[index].equals("S")) {
     		this.pos.y--;
+    		//direction = "S";
 		}	
     }
     //LESTE
@@ -129,15 +139,15 @@ public class Robo {
     }
     
     //SUL
-    /*public Boolean S() {
+    public Boolean S() {
     	motorB.rotateTo((TURN_90_ANGLE*2)-70, true);
     	motorC.rotateTo(((TURN_90_ANGLE*2)-70)*-1, true);
     	
     	while (motorB.isMoving() || motorC.isMoving());
     	
-    	System.out.println("FRONT");
+    	System.out.println("SOUTH");
     	return true;
-    }*/
+    }
     
     public Boolean moveForward() {
     	motorB.resetTachoCount();
